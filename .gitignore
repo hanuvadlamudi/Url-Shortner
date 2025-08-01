@@ -1,0 +1,95 @@
+# Dependency directories
+node_modules/
+bower_components/
+jspm_packages/
+vendor/
+
+# Build and production directories
+dist/
+build/
+tmp/
+temp/
+.cache/
+.ember-cli/
+coverage/
+out/
+next/
+public/build/
+public/dist/
+
+# Log files and reports
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+coverage-final.json
+
+# Environment files (keep secrets out of git)
+.env
+.env.*
+!.env.example
+
+# System files and IDE folders
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# OS, editor, and misc
+*.sublime-workspace
+*.sublime-project
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Python (if backend uses it)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Test and cache artifacts
+*.tgz
+npm-packages-offline-cache/
+.cache/
+.tmp/
+
+# Miscellaneous
+*.local
+*.pid
+*.seed
+*.pid.lock
+*.tgz
+
+# Ignore backup and archive files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.bak
+
+# Ignore sensitive files (optional, customize as needed)
+*.key
+*.pem
+*.crt
+*.csr
+
+# Ignore frontend build artifacts (Angular, React, Vue)
+.sass-cache/
+.cache-loader/
+node_modules/
+.vite/
+.eslintcache
+
+# Ignore next.js build output (if used)
+.next/
+out/
