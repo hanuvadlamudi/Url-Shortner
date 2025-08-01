@@ -20,7 +20,7 @@ app.listen(8080, () => {
 });
 
 app.use("/api/create",router);
-app.use("/api/auth",auth_routes);
+app.use("/api/auth", auth_routes);
 
 
 app.get("/:id",redirectFromShortUrl);
