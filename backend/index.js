@@ -7,11 +7,12 @@ import auth_routes from "./routes/auth.route.js";
 import { redirectFromShortUrl } from "./controllers/shortUrl.controller.js";
 import { errorHandler } from "./utils/errorHandler.util.js";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 const app = express();
 configDotenv();
-
-app.use(cors())
+app.use(cookieParser());
+app.use(cors());
 app.use(express.json());
 
 app.listen(8080, () => {

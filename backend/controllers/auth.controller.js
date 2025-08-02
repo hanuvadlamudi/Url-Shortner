@@ -8,7 +8,7 @@ export const register = async (req, res, next) => {
 
     const { user, token } = await registerUserService(name, email, password);
 
-    res.cookie("accesstoken", accesstoken, {
+    res.cookie("accesstoken", token, { 
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
@@ -24,6 +24,7 @@ export const register = async (req, res, next) => {
     next(err);
   }
 };
+
 
 export const login = async (req, res, next) => {
   try {
