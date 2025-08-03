@@ -12,7 +12,11 @@ import cookieParser from "cookie-parser";
 const app = express();
 configDotenv();
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({
+  origin: true,  // Reflects the request origin (allows all, but safer than '*')
+  credentials: true  // Enables cookies to be sent/received
+}));
+
 app.use(express.json());
 
 app.listen(8080, () => {

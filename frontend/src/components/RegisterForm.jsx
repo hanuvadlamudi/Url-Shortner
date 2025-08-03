@@ -1,25 +1,33 @@
 import React, { useState } from 'react';
-import { loginUser } from '../api/User.Api';
+import { registerUser } from '../api/User.Api';
 import { NavLink } from 'react-router-dom';
 
-const LoginForm = () => {
+const RegisterForm = () => {
+  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const submitHandler = async (e) => {
+  const registerUserHandler = async (e) => {
     e.preventDefault(); // Prevents default form submission
-    try {
-      const result = await loginUser(email, password);
-      console.log(result);
-    } catch (error) {
-      // Handle error (e.g., set an error state or show a message)
-    }
+    const result = await registerUser(fullName, email, password);
+    console.log(result);
   };
 
   return (
     <div className="max-w-md w-full mx-auto bg-white shadow-lg border border-gray-100 rounded-lg px-6 py-8 mt-10">
-      <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
-      <form onSubmit={submitHandler}>
+      <h2 className="text-2xl font-bold text-center mb-6">Create an Account</h2>
+      <form onSubmit={registerUserHandler}>
+        <label className="block mb-4">
+          <span className="block font-semibold mb-1">Full Name</span>
+          <input
+            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+            type="text"
+            value={fullName}
+            onChange={e => setFullName(e.target.value)}
+            placeholder="User Name"
+            required
+          />
+        </label>
         <label className="block mb-4">
           <span className="block font-semibold mb-1">Email</span>
           <input
@@ -44,24 +52,24 @@ const LoginForm = () => {
         </label>
         <button
           type="submit"
-          className="cursor-pointer w-full py-2 bg-blue-600 text-white rounded font-semibold hover:bg-blue-700 transition active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 mt-3"
+          className="cursor-pointer w-full py-2 bg-blue-600 text-white rounded font-semibold hover:bg-blue-700 transition mt-3"
         >
-          Sign In
+          Create Account
         </button>
       </form>
       <div className="text-center mt-6 text-sm">
-        Don&apos;t have an account?{' '}
+        Already have an account?{' '}
         <NavLink 
-          to="/register" 
+          to="/login" 
           className={({ isActive }) => 
             `cursor-pointer text-blue-600 hover:underline ${isActive ? 'font-bold underline' : ''}`
           }
         >
-          Register
+          Sign In
         </NavLink>
       </div>
     </div>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
