@@ -1,16 +1,26 @@
 import React, { useState } from 'react';
 import { registerUser } from '../api/User.Api';
-import { NavLink } from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { login } from '../store/slice/Auth.slice';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = () => {
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState('hola');
+  const [email, setEmail] = useState('hola@gmail.com');
+  const [password, setPassword] = useState('hola');
+
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const registerUserHandler = async (e) => {
     e.preventDefault(); // Prevents default form submission
-    const result = await registerUser(fullName, email, password);
-    console.log(result);
+    const {user} = await registerUser(fullName, email, password);
+    dispatch(login(user));
+    navigate("/dashboard");
+    // console.log(user);
   };
 
   return (

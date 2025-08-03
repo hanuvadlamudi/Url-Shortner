@@ -1,16 +1,28 @@
 import React, { useState } from 'react';
 import { loginUser } from '../api/User.Api';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useNavigate} from 'react-router-dom';
+import { login } from '../store/slice/Auth.slice';
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+
+  const [email, setEmail] = useState('hola@gmail.com');
+  const [password, setPassword] = useState('hola');
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  const auth = useSelector((state)=>state.auth);
+  console.log(auth);
 
   const submitHandler = async (e) => {
-    e.preventDefault(); // Prevents default form submission
+    e.preventDefault(); 
     try {
-      const result = await loginUser(email, password);
-      console.log(result);
+      const {user} = await loginUser(email, password);
+      console.log(user);
+      dispatch(login(user));
+      navigate("/dashboard");
     } catch (error) {
       // Handle error (e.g., set an error state or show a message)
     }
