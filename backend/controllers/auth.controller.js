@@ -1,5 +1,6 @@
 import { BadRequestError } from "../utils/errorHandler.util.js";
 import { registerUserService, loginUserService } from "../services/registerUser.service.js";
+import User from "../model/user.model.js";
 
 export const register = async (req, res, next) => {
   try {
@@ -44,6 +45,37 @@ export const login = async (req, res, next) => {
       success: true,
       user: { id: user._id, name: user.name, email: user.email },
       message: "Logged in successfully",
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const logout = (req, res) => {
+  res.cookie("accesstoken", "", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    maxAge: 0,  
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "Logged out successfully",
+  });
+};
+
+
+export const getCurrentUser = async (req, res, next) => {
+  try {
+    const userId = req.user.id; 
+    const user = await User.findById(userId).select("-password");
+    if (!user) throw new BadRequestError("User not found or unauthorized");
+
+    res.status(200).json({
+      success: true,
+      user,
+      message: "Current user retrieved successfully",
     });
   } catch (err) {
     next(err);

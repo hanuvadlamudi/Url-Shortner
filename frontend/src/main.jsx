@@ -9,7 +9,7 @@ import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import UrlShortenerUI from './components/UrlShortenerUI';
 import Dashboard from './components/Dashboard.jsx';
-import { authenticate } from '../utils/Authenticate.js';
+import { authenticate } from './utils/Authenticate.js';
 
 const router = createBrowserRouter([
   {

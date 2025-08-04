@@ -1,9 +1,50 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import UrlShortenerUI from './UrlShortenerUI';
+import UserUrls from './UserUrls';
+import { getUserUrls } from "../api/User.Api";
 
-function Dashboard() {
+const Dashboard = () => {
+  const { isAuthenticated } = useSelector(state => state.auth);
+  const [urls, setUrls] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchUrls();
+    }
+  }, [isAuthenticated]);
+
+  const fetchUrls = async () => {
+    setLoading(true);
+    try {
+      const data = await getUserUrls();
+      if(data?.success){
+        setUrls(data.urls);
+      } else {
+        setError(data?.message || 'Failed to fetch URLs');
+      }
+    } catch (e) {
+      setError('Error fetching URLs');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleUrlAdded = (shortUrl, originalUrl) => {
+    setUrls(prev => [{ originalUrl, shortUrl, clicks: 0 }, ...prev]);
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+
   return (
-    <div>Dashboard</div>
-  )
-}
+    <div>
+      <UrlShortenerUI onUrlAdded={handleUrlAdded} />
+      {isAuthenticated && <UserUrls urls={urls} />}
+    </div>
+  );
+};
 
-export default Dashboard
+export default Dashboard;

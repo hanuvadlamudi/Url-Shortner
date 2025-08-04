@@ -13,3 +13,24 @@ export const loginUser = async (email, password) => {
   });
   return data;
 };
+
+export const logoutUser = async () => {
+  const { data } = await axios.post("http://localhost:8080/api/auth/logout", {}, {
+    withCredentials: true  
+  });
+  return data;
+};
+
+export const getCurrentUser = async () =>{
+  const { data } = await axios.get("http://localhost:8080/api/auth/current", {
+    withCredentials: true  
+  });
+  return data;
+}
+
+export const getUserUrls = async () => {
+  const { data } = await axios.get("http://localhost:8080/api/user/urls", {
+    withCredentials: true
+  });
+  return data;
+};
