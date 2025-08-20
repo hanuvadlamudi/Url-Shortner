@@ -9,11 +9,11 @@ export const register = async (req, res, next) => {
 
     const { user, token } = await registerUserService(name, email, password);
 
-    res.cookie("accesstoken", token, { 
+    res.cookie("accesstoken", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      maxAge: 604800000,
+      sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax',
+      maxAge: 604800000, // 7 days
     });
 
     res.status(201).json({
@@ -26,7 +26,6 @@ export const register = async (req, res, next) => {
   }
 };
 
-
 export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -37,8 +36,8 @@ export const login = async (req, res, next) => {
     res.cookie("accesstoken", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      maxAge: 604800000,
+      sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax',
+      maxAge: 604800000, // 7 days
     });
 
     res.status(200).json({
@@ -55,8 +54,8 @@ export const logout = (req, res) => {
   res.cookie("accesstoken", "", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    maxAge: 0,  
+    sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax',
+    maxAge: 0,
   });
 
   res.status(200).json({
@@ -65,10 +64,9 @@ export const logout = (req, res) => {
   });
 };
 
-
 export const getCurrentUser = async (req, res, next) => {
   try {
-    const userId = req.user.id; 
+    const userId = req.user.id;
     const user = await User.findById(userId).select("-password");
     if (!user) throw new BadRequestError("User not found or unauthorized");
 
