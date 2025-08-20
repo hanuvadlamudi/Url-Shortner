@@ -14,10 +14,13 @@ import cookieParser from "cookie-parser";
 const app = express();
 
 app.use(cookieParser());
+
 app.use(cors({
-  origin: true,
+  origin: process.env.APP_URL, 
   credentials: true
 }));
+
+
 app.use(express.json());
 
 app.listen(8080, () => {

@@ -1,23 +1,25 @@
 import axios from 'axios';
 import store from '../store/store';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
 export const shorten = async (originalUrl, slug = "") => {
   const { isAuthenticated } = store.getState().auth;
-  
+
   let endpoint;
-  let payload = { url: originalUrl };  
-  
+  let payload = { url: originalUrl };
+
   if (isAuthenticated) {
     if (slug) {
-      endpoint = 'http://localhost:8080/api/create/custom';
-      payload = { url: originalUrl, slug };  
+      endpoint = `${API_BASE_URL}/api/create/custom`;
+      payload = { url: originalUrl, slug };
     } else {
-      endpoint = 'http://localhost:8080/api/create/user';
+      endpoint = `${API_BASE_URL}/api/create/user`;
     }
   } else {
-    endpoint = 'http://localhost:8080/api/create';
+    endpoint = `${API_BASE_URL}/api/create`;
   }
-  
+
   const { data } = await axios.post(endpoint, payload, {
     withCredentials: true
   });
