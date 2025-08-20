@@ -4,8 +4,7 @@ bower_components/
 jspm_packages/
 vendor/
 
-# Build and production directories
-dist/
+# Build and production directories (ignore everything except frontend/dist)
 build/
 tmp/
 temp/
@@ -16,6 +15,10 @@ out/
 next/
 public/build/
 public/dist/
+
+# Keep frontend/dist tracked
+!frontend/dist/
+
 
 # Log files and reports
 *.log
