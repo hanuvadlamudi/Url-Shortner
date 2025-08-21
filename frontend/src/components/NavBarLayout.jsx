@@ -24,7 +24,7 @@ const NavbarLayout = () => {
   return (
     <div>
       <nav className="w-full flex items-center justify-between py-4 px-6 bg-gradient-to-r from-purple-600 to-indigo-600 shadow-lg text-white">
-        <div className="font-bold text-2xl tracking-wide">URL Shortener</div>
+        <div className="font-bold text-2xl tracking-wide">TinyRoute.ly</div>
         <div className="hidden md:flex gap-8">
           {!isAuthenticated ? (
             <>
