@@ -8,8 +8,8 @@ import { login } from '../store/slice/Auth.slice';
 
 const LoginForm = () => {
 
-  const [email, setEmail] = useState('hola@gmail.com');
-  const [password, setPassword] = useState('hola');
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
   const navigate = useNavigate();
 
   const dispatch = useDispatch();

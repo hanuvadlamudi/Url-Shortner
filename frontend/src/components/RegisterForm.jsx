@@ -7,9 +7,9 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = () => {
-  const [fullName, setFullName] = useState('hola');
-  const [email, setEmail] = useState('hola@gmail.com');
-  const [password, setPassword] = useState('hola');
+  const [fullName, setFullName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
 
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
