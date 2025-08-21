@@ -4,7 +4,7 @@ import { shorten } from "../api/Shortner.api";
 
 const UrlShortenerUI = ({ onUrlAdded }) => {
   
-  const [url, setUrl] = useState();
+  const [url, setUrl] = useState("");
   const [customSlug, setCustomSlug] = useState("");
   const [shortUrl, setShortUrl] = useState("");
   const [copied, setCopied] = useState(false);
@@ -22,9 +22,11 @@ const UrlShortenerUI = ({ onUrlAdded }) => {
       else data = await shorten(url);
       if (data) {
         setShortUrl(data);
-        if (typeof onUrlAdded === 'function') onUrlAdded(data, url);
+        if (typeof onUrlAdded === "function") onUrlAdded(data, url);
       }
-    } catch (error) { console.error("Error creating short URL:", error); }
+    } catch (error) {
+      console.error("Error creating short URL:", error);
+    }
   };
 
   const copyToClipboard = () => {
@@ -38,8 +40,13 @@ const UrlShortenerUI = ({ onUrlAdded }) => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-white pt-24">
       <div className="flex flex-col items-center gap-6 w-full max-w-md bg-white rounded-3xl shadow-2xl px-8 py-10">
-        <h1 className="text-3xl font-extrabold text-gray-900 text-center mb-2">TinyRoute.ly</h1>
-        <form className="w-full flex flex-col items-center gap-4" onSubmit={submitHandler}>
+        <h1 className="text-3xl font-extrabold text-gray-900 text-center mb-2">
+          TinyRoute.ly
+        </h1>
+        <form
+          className="w-full flex flex-col items-center gap-4"
+          onSubmit={submitHandler}
+        >
           <input
             type="text"
             placeholder="Paste your link"
