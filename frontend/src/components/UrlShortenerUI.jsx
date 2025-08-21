@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { shorten } from "../api/Shortner.api";
 
 const UrlShortenerUI = ({ onUrlAdded }) => {
+  
   const [url, setUrl] = useState("https://www.google.com/");
   const [customSlug, setCustomSlug] = useState("");
   const [shortUrl, setShortUrl] = useState("");
