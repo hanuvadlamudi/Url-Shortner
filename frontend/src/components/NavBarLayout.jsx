@@ -5,6 +5,7 @@ import { logout } from '../store/slice/Auth.slice.js';
 import { logoutUser } from '../api/User.Api.js'; 
 
 const NavbarLayout = () => {
+  
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isAuthenticated } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
