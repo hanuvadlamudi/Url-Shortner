@@ -16,20 +16,8 @@ const app = express();
 app.use(cookieParser());
 
 
-import cors from "cors";
-
 app.use(cors({
-  origin: (origin, callback) => {
-    const allowedOrigins = [
-      'http://localhost:5173',
-      'https://razor-url-shortner.onrender.com'
-    ];
-    if (allowedOrigins.includes(origin) || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: process.env.APP_URL,
   credentials: true
 }));
 
