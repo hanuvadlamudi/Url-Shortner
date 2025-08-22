@@ -15,7 +15,7 @@ const NavbarLayout = () => {
 
   return (
     <>
-      <header className="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-500 flex items-center justify-between">
+      <header className="fixed top-0 left-0 w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-500 flex items-center justify-between z-50">
         <NavLink to="/" className="text-3xl font-extrabold text-white">
           TinyRoute.ly
         </NavLink>
