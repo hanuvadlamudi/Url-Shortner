@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import UrlShortenerUI from './UrlShortenerUI';
-import UserUrls from './UserUrls';
 import { getUserUrls } from "../api/User.Api";
+import RecentUrls from './RecentUrls';
 
 const Dashboard = () => {
   const { isAuthenticated } = useSelector(state => state.auth);
@@ -42,7 +42,7 @@ const Dashboard = () => {
   return (
     <div>
       <UrlShortenerUI onUrlAdded={handleUrlAdded} />
-      {isAuthenticated && <UserUrls urls={urls} />}
+      {isAuthenticated && <RecentUrls urls={urls.slice(0, 5)} />}
     </div>
   );
 };

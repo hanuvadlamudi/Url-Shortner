@@ -1,91 +1,93 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../store/slice/Auth.slice.js'; 
-import { logoutUser } from '../api/User.Api.js'; 
+import { logout } from '../store/slice/Auth.slice';
 
 const NavbarLayout = () => {
-  
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated } = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    try {
-      await logoutUser();
-      dispatch(logout()); 
-      navigate('/login'); 
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/login');
   };
 
   return (
-    <div>
-      <nav className="w-full flex items-center justify-between py-4 px-6 bg-gradient-to-r from-purple-600 to-indigo-600 shadow-lg text-white">
-        <div className="font-bold text-2xl tracking-wide">TinyRoute.ly</div>
-        <div className="hidden md:flex gap-8">
-          {!isAuthenticated ? (
+    <>
+      <header className="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-500 flex items-center justify-between">
+        <NavLink to="/" className="text-3xl font-extrabold text-white">
+          TinyRoute.ly
+        </NavLink>
+
+        <nav className="flex items-center space-x-6">
+          {isAuthenticated && (
             <>
-              <NavLink 
-                to="/login" 
-                className={({ isActive }) => 
-                  `cursor-pointer hover:text-purple-200 transition duration-200 ${isActive ? 'text-purple-200 font-semibold border-b-2 border-purple-200' : ''}`
+              <NavLink
+                to="/home"
+                className={({ isActive }) =>
+                  `cursor-pointer relative text-white font-semibold pb-1 transition-all duration-300 ease-in-out
+                  ${isActive ? 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-white after:scale-x-100' : 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-white after:scale-x-0 after:transition-transform after:duration-300'} hover:after:scale-x-100`
+                }
+              >
+                Home
+              </NavLink>
+              <NavLink
+                to="/dashboard"
+                className={({ isActive }) =>
+                  `cursor-pointer relative text-white font-semibold pb-1 transition-all duration-300 ease-in-out
+                  ${isActive ? 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-white after:scale-x-100' : 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-white after:scale-x-0 after:transition-transform after:duration-300'} hover:after:scale-x-100`
+                }
+              >
+                Dashboard
+              </NavLink>
+              {/* <NavLink
+                to="/recent-urls"
+                className={({ isActive }) =>
+                  `cursor-pointer relative text-white font-semibold pb-1 transition-all duration-300 ease-in-out
+                  ${isActive ? 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-white after:scale-x-100' : 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-white after:scale-x-0 after:transition-transform after:duration-300'} hover:after:scale-x-100`
+                }
+              >
+                Recent URLs
+              </NavLink> */}
+            </>
+          )}
+
+          {isAuthenticated ? (
+            <button
+              onClick={handleLogout}
+              className="cursor-pointer relative text-white font-semibold pb-1 transition-all duration-300 ease-in-out
+                after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-white after:scale-x-0 after:transition-transform after:duration-300 hover:after:scale-x-100"
+            >
+              Logout
+            </button>
+          ) : (
+            <>
+              <NavLink
+                to="/login"
+                className={({ isActive }) =>
+                  `cursor-pointer relative text-white font-semibold pb-1 transition-all duration-300 ease-in-out
+                  ${isActive ? 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-white after:scale-x-100' : 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-white after:scale-x-0 after:transition-transform after:duration-300'} hover:after:scale-x-100`
                 }
               >
                 Login
               </NavLink>
-              <NavLink 
-                to="/register" 
-                className={({ isActive }) => 
-                  `cursor-pointer hover:text-purple-200 transition duration-200 ${isActive ? 'text-purple-200 font-semibold border-b-2 border-purple-200' : ''}`
+              <NavLink
+                to="/register"
+                className={({ isActive }) =>
+                  `cursor-pointer relative text-white font-semibold pb-1 transition-all duration-300 ease-in-out
+                  ${isActive ? 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-white after:scale-x-100' : 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-white after:scale-x-0 after:transition-transform after:duration-300'} hover:after:scale-x-100`
                 }
               >
                 Register
               </NavLink>
             </>
-          ) : (
-            <button 
-              onClick={handleLogout}
-              className="cursor-pointer hover:text-purple-200 transition duration-200"
-            >
-              Logout
-            </button>
           )}
-        </div>
-        <div className="md:hidden flex items-center">
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="focus:outline-none">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
-            </svg>
-          </button>
-        </div>
-      </nav>
-      {isMenuOpen && (
-        <div className="md:hidden flex flex-col items-center bg-indigo-500 text-white py-4">
-          {!isAuthenticated ? (
-            <>
-              <NavLink to="/login" className="py-2 hover:text-purple-200" onClick={() => setIsMenuOpen(false)}>Login</NavLink>
-              <NavLink to="/register" className="py-2 hover:text-purple-200" onClick={() => setIsMenuOpen(false)}>Register</NavLink>
-            </>
-          ) : (
-            <button 
-              onClick={() => {
-                handleLogout();
-                setIsMenuOpen(false);
-              }}
-              className="py-2 hover:text-purple-200"
-            >
-              Logout
-            </button>
-          )}
-        </div>
-      )}
-      <main className="p-6 max-w-7xl mx-auto">
-        <Outlet />
-      </main>
-    </div>
+        </nav>
+      </header>
+
+      <Outlet />
+    </>
   );
 };
 

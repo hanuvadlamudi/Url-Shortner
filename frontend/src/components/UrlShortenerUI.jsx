@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { shorten } from "../api/Shortner.api";
 
 const UrlShortenerUI = ({ onUrlAdded }) => {
-  
   const [url, setUrl] = useState("");
   const [customSlug, setCustomSlug] = useState("");
   const [shortUrl, setShortUrl] = useState("");
@@ -23,6 +22,8 @@ const UrlShortenerUI = ({ onUrlAdded }) => {
       if (data) {
         setShortUrl(data);
         if (typeof onUrlAdded === "function") onUrlAdded(data, url);
+        setUrl("");
+        setCustomSlug("");
       }
     } catch (error) {
       console.error("Error creating short URL:", error);
@@ -38,7 +39,7 @@ const UrlShortenerUI = ({ onUrlAdded }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white pt-24">
+    <div className="min-h-screen flex items-start justify-center bg-white mt-24">
       <div className="flex flex-col items-center gap-6 w-full max-w-md bg-white rounded-3xl shadow-2xl px-8 py-10">
         <h1 className="text-3xl font-extrabold text-gray-900 text-center mb-2">
           TinyRoute.ly

@@ -19,7 +19,7 @@ const RegisterForm = () => {
     e.preventDefault(); // Prevents default form submission
     const {user} = await registerUser(fullName, email, password);
     dispatch(login(user));
-    navigate("/dashboard");
+    navigate("/home");
     // console.log(user);
   };
 

@@ -56,6 +56,7 @@ export const customUrl = async (req, res, next) => {
 
 export const redirectFromShortUrl = async (req, res, next) => {
   try {
+    console.log(req);
     const { id } = req.params;
     console.log(id);
     if (!id) {

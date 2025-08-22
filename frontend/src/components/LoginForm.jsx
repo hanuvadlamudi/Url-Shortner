@@ -22,7 +22,7 @@ const LoginForm = () => {
       const {user} = await loginUser(email, password);
       console.log(user);
       dispatch(login(user));
-      navigate("/dashboard");
+      navigate("/home");
     } catch (error) {
       // Handle error (e.g., set an error state or show a message)
     }
