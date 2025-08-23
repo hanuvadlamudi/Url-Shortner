@@ -17,7 +17,7 @@ const RecentUrls = ({ urls }) => {
 
   if (!urls || urls.length === 0) return null;
   return (
-    <div className="flex justify-center mt-12">
+    <div className="flex justify-center mt-20 mb-20">
       <div className="w-full max-w-2xl space-y-4">
         <h2 className="text-2xl font-bold mb-3 text-gray-800">Recent Shortened URLs</h2>
         {urls.map((u, i) => (
